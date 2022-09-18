@@ -40,72 +40,42 @@ class obj {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x,this.y,this.w,this.h)
     }
+    touching(type) {
+        let object;
+        for (var i=0;i<type.objs.length;i++) {
+            object = type.objs[i]
+            let x11 = this.x;
+            let x12 = this.x + this.w;
+            let y11 = this.y;
+            let y12 = this.y + this.h;
+            let x21 = object.x;
+            let x22 = object.x + object.w;
+            let y21 = object.y;
+            let y22 = object.y + object.h;
+            if ((x11 > x21 && x11 < x22) || (x12 > x21 && x12 < x22)) {
+                if ((y11 > y21 && y11 < y22) || (y12 > y21 && y12 < y22)) {
+                    return true;
+                } 
+            } 
+        }
+        return false;
+    }
 }
-
-function tag() {
-    function c(x,x1, w1) {
-        return x >= x1 && x <= x1 + w1
+class type {
+    constructor(...objs) {
+        this.objs = []
+        for (let i=0; i<objs.length; i++) {
+            this.objs.push(objs[i])
+        };
     }
-    console.log("tag", c(p1.x, p2.x, p2.w))
-    if ((c(p1.x, p2.x, p2.w) || c(p1.x + p1.w, p2.x, p2.w)) && (c(p1.y, p2.y, p2.h) || c(p1.y + p1.h, p2.y, p2.w))) {
-        let temp = p1.color
-        p1.color = p2.color
-        p2.color = temp
-        p1.update()
-        p2.update()
+    color(hexColor) {
+        for (let i=0; i<this.objs.length; i++) {
+            this.objs[i].color = hexColor
+            this.objs[i].update()
+        };
     }
 }
-
-document.addEventListener('keydown', (event) => {
-    if (event.isComposing || event.keyCode === 229) {
-        return;
-    }
-    console.log(event.key)
-    if (event.key === "w") {
-        p1.move(0,-(p1.h/2))
-        tag() 
-    }
-    if (event.key === "a") {
-        p1.move(-(p1.w/2))
-        tag() 
-    }
-    if (event.key === "s") {
-        p1.move(0,(p1.h/2))
-        tag() 
-    }
-    if (event.key === "d") {
-        p1.move((p1.w/2))
-        tag() 
-    }
-    if (event.key === "ArrowUp") {
-        p2.move(0,-(p2.h/2))
-        tag() 
-    }
-    if (event.key === "ArrowLeft") {
-        p2.move(-(p2.w/2))
-        tag() 
-    }
-    if (event.key === "ArrowDown") {
-        p2.move(0,(p2.h/2))
-        tag() 
-    }
-    if (event.key === "ArrowRight") {
-        p2.move((p2.w/2))
-        tag() 
-    }
-    /*if(event.key === "Shift") {
-        tag()
-    }*/
-})
-
-spawnx = window.innerWidth - 160
-spawny = window.innerHeight - 160
-
-let p1 = new obj(0,0,60,60,'#0d33db','canv')
-let p2 = new obj(spawnx,spawny,60,60,'#FF0000','canv')
-
-// game loop
-setInterval(function(){
-    p1.update()
-    p2.update()
-},4)
+let p1 = new obj(0,0,10,10,"#FF0000","canv")
+let wall = new type(p1)
+let p2 = new obj(10,9,20,20,"#000000",'canv')
+//document.addEventListener('keydown', (event) => {})
