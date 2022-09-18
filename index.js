@@ -68,6 +68,11 @@ class type {
             this.objs.push(objs[i])
         };
     }
+    add(...objs) {
+        for (let i=0; i<objs.length; i++) {
+            this.objs.push(objs[i])
+        };
+    }
     color(hexColor) {
         for (let i=0; i<this.objs.length; i++) {
             this.objs[i].color = hexColor
@@ -75,7 +80,11 @@ class type {
         };
     }
 }
-let p1 = new obj(0,0,10,10,"#FF0000","canv")
-let wall = new type(p1)
-let p2 = new obj(10,9,20,20,"#000000",'canv')
+// var name   type x y w  h    color  canvas id
+//    v         v  v v v   v     v        v
+//let p1 = new obj(0,0,10,10,"#FF0000","canv")
+//  var name    type  objects(can put multiple)
+//     v          v   v
+//let wall = new type(p1)
+// to catch keypresses
 //document.addEventListener('keydown', (event) => {})
