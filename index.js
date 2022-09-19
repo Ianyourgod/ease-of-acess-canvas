@@ -80,11 +80,14 @@ class type {
         };
     }
 }
-// var name   type x y w  h    color  canvas id
-//    v         v  v v v   v     v        v
-//let p1 = new obj(0,0,10,10,"#FF0000","canv")
-//  var name    type  objects(can put multiple)
-//     v          v   v
-//let wall = new type(p1)
-// to catch keypresses
-//document.addEventListener('keydown', (event) => {})
+/*
+ var name   type x y w  h    color  canvas id
+    v         v  v v v   v     v        v
+let p1 = new obj(0,0,10,10,"#FF0000","canv")
+  var name    type  objects(can put multiple)
+     v          v   v
+let wall = new type(p1)
+to catch keypresses                include this         the key that was pressed
+                                        v                        v
+document.addEventListener('keydown', (event) => {console.log(event.key)})
+*/
