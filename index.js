@@ -40,6 +40,23 @@ class obj {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x,this.y,this.w,this.h)
     }
+    touchingObject(object) {
+        object = type.objs[i]
+        let x11 = this.x;
+        let x12 = this.x + this.w;
+        let y11 = this.y;
+        let y12 = this.y + this.h;
+        let x21 = object.x;
+        let x22 = object.x + object.w;
+        let y21 = object.y;
+        let y22 = object.y + object.h;
+        if ((x11 > x21 && x11 < x22) || (x12 > x21 && x12 < x22)) {
+            if ((y11 > y21 && y11 < y22) || (y12 > y21 && y12 < y22)) {
+                return true;
+            }
+        }
+        return false
+    }
     touching(type) {
         let object;
         for (var i=0;i<type.objs.length;i++) {
@@ -78,6 +95,30 @@ class type {
             this.objs[i].color = hexColor
             this.objs[i].update()
         };
+    }
+    touching(type) {
+        let object;
+        let obje;
+        for (var a=0;a<this.objs;a++) {
+            obje = this.objs[a]
+            for (var i=0;i<type.objs.length;i++) {
+                object = type.objs[i]
+                let x11 = obje.x;
+                let x12 = obje.x + obje.w;
+                let y11 = obje.y;
+                let y12 = obje.y + obje.h;
+                let x21 = object.x;
+                let x22 = object.x + object.w;
+                let y21 = object.y;
+                let y22 = object.y + object.h;
+                if ((x11 > x21 && x11 < x22) || (x12 > x21 && x12 < x22)) {
+                    if ((y11 > y21 && y11 < y22) || (y12 > y21 && y12 < y22)) {
+                        return true;
+                    } 
+                } 
+            }
+        }
+        return false;
     }
 }
 /*
