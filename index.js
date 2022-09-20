@@ -96,7 +96,7 @@ class obj {
         if (y12 > height) {
             return 'bottom'
         }
-        return false
+        return "none"
     }
 }
 class type {
@@ -155,20 +155,42 @@ document.addEventListener('keydown', (event) => {console.log(event.key)})
 */
 let p1 = new obj(0,0,20,20,'#0000FF',"canv")
 document.addEventListener('keydown', (event) => {
-    console.log(event.key)
-    if (p1.touchingEdge()) {
-        return
-    }
     if (event.key === "w") {
+        p1.y -= 1
+        console.log(p1.y)
+        if (p1.touchingEdge() === "top") {
+            p1.y += 1
+            console.log(p1.y)
+            return;
+        }
+        p1.y += 1
         p1.move(0,-1)
     }
     if (event.key === "a") {
+        p1.x -= 1
+        if (p1.touchingEdge() === "left") {
+            p1.x += 1
+            return
+        }
+        p1.x += 1
         p1.move(-1)
     }
     if (event.key === "s") {
+        p1.y += 1
+        if (p1.touchingEdge() === "bottom") {
+            p1.y -= 1
+            return
+        }
+        p1.y -= 1
         p1.move(0,1)
     }
     if (event.key === "d") {
+        p1.x += 1
+        if (p1.touchingEdge() === "right") {
+            p1.x -= 1
+            return
+        }
+        p1.x -= 1
         p1.move(1)
     }
 })
