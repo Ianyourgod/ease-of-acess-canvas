@@ -84,7 +84,7 @@ class obj {
         let x12 = this.x + this.w;
         let y11 = this.y;
         let y12 = this.y + this.h;
-        if ((x11 < 0) || () || () || (y12 > height)) {
+        if (x11 < 0) {
             return "left"
         }
         if (x12 > width) {
@@ -93,7 +93,7 @@ class obj {
         if (y11 < 0) {
             return 'top'
         }
-        if () {
+        if (y12 > height) {
             return 'bottom'
         }
         return false
