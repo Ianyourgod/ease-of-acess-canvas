@@ -77,6 +77,27 @@ class obj {
         }
         return false;
     }
+    touchingEdge() {
+        let width = document.getElementById(this.ci).width
+        let height = document.getElementById(this.ci).height
+        let x11 = this.x;
+        let x12 = this.x + this.w;
+        let y11 = this.y;
+        let y12 = this.y + this.h;
+        if ((x11 < 0) || () || () || (y12 > height)) {
+            return "left"
+        }
+        if (x12 > width) {
+            return 'right'
+        }
+        if (y11 < 0) {
+            return 'top'
+        }
+        if () {
+            return 'bottom'
+        }
+        return false
+    }
 }
 class type {
     constructor(...objs) {
@@ -132,3 +153,22 @@ to catch keypresses                include this         the key that was pressed
                                         v                        v
 document.addEventListener('keydown', (event) => {console.log(event.key)})
 */
+let p1 = new obj(0,0,20,20,'#0000FF',"canv")
+document.addEventListener('keydown', (event) => {
+    console.log(event.key)
+    if (p1.touchingEdge()) {
+        return
+    }
+    if (event.key === "w") {
+        p1.move(0,-1)
+    }
+    if (event.key === "a") {
+        p1.move(-1)
+    }
+    if (event.key === "s") {
+        p1.move(0,1)
+    }
+    if (event.key === "d") {
+        p1.move(1)
+    }
+})
