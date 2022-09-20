@@ -152,7 +152,6 @@ let wall = new type(p1)
 to catch keypresses                include this         the key that was pressed
                                         v                        v
 document.addEventListener('keydown', (event) => {console.log(event.key)})
-*/
 let p1 = new obj(0,0,20,20,'#0000FF',"canv")
 document.addEventListener('keydown', (event) => {
     if (event.key === "w") {
@@ -193,4 +192,4 @@ document.addEventListener('keydown', (event) => {
         p1.x -= 1
         p1.move(1)
     }
-})
+})*/
