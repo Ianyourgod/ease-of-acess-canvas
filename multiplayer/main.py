@@ -9,9 +9,15 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def home():
     return render_template("index.html")
 
-@socketio.on("move")
-def move(name,dir):
+@socketio.on("connect")
+def connect():
+    players[request.sid] = [0,0]
+    print(players)
 
+@socketio.on("disconnect")
+def disconnect():
+    print("discon")
+    del players[request.sid]
 
 if __name__ == "__main__":
     app.run(debug=True)
