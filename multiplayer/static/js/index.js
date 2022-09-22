@@ -1,5 +1,3 @@
-const socket = io();
-
 class obj {
     constructor(x,y,width,height,hexColor,canvasId) {
         this.x = x
@@ -154,7 +152,11 @@ let wall = new type(p1)
 to catch keypresses                include this         the key that was pressed
                                         v                        v
 document.addEventListener('keydown', (event) => {console.log(event.key)})*/
-let p1 = new obj(0,0,20,20,'#0000FF',"canv")
+const socket = io();
+const players = []
+socket.on("new", (color, id) => {
+    players.append(new obj(0,0,20,20,color,"canv"))
+});
 document.addEventListener('keydown', (event) => {
     if (event.key === "w") {
         p1.y -= 1
