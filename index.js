@@ -1,3 +1,11 @@
+let bg = document.createElement("style")
+bg.id="canvbg"
+document.getElementById("body").appendChild(bg)
+bg = document.getElementById("canvbg")
+function backgroundColor(color,canvasID) {
+    bg.innerHTML = "#"+canvasID+" {background-color:" + color + ";}"
+}
+backgroundColor("#00FF00","canv")
 class obj {
     constructor(x,y,width,height,hexColor,canvasId) {
         this.x = x
@@ -38,6 +46,7 @@ class obj {
         let ctx = document.getElementById(this.ci).getContext("2d")
         this._update()
         ctx.fillStyle = this.color
+
         ctx.fillRect(this.x,this.y,this.w,this.h)
     }
     touchingObject(object) {
