@@ -1,3 +1,11 @@
+/*
+ _._     _,-'""`-._
+(,-.`._,'(       |\`-/|
+    `-.-' \ )-`( , o o)
+          `-    \`_`"'-
+*/
+
+
 let bg = document.createElement("style")
 bg.id="canvbg"
 document.getElementById("body").appendChild(bg)
