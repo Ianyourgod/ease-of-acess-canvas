@@ -1,4 +1,5 @@
 /*
+If you want to understand this code/you want to edit it, email ianlouishawthorne@gmail.com
  _._     _,-'""`-._
 (,-.`._,'(       |\`-/|
     `-.-' \ )-`( , o o)
@@ -6,16 +7,18 @@
 */
 
 class canvas {
-    constructor(id,w,h) {
+    constructor(id,w,h,bgcolor="#FFFFFF") {
         this.canv = document.createElement("canvas");
         this.canv.id = id;
         this.canv.width = w-50;
         this.canv.height = h-50;
         this.objects = [];
         this.ctx = this.canv.getContext("2d");
+        this.canv.style.backgroundColor = bgcolor;
         document.body.appendChild(this.canv);
     }
     draw() {
+        this.ctx.clearRect(0,0,this.canv.width,this.canv.height);
         for (var i = 0; i < this.objects.length; i++) {
             this.objects[i].draw();
         }
@@ -33,7 +36,7 @@ class canvas {
     }
 }
 class Object {
-    constructor(x,y,w,h,canvas) {
+    constructor(x,y,w,h,canvas,color="#000000") {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -41,6 +44,7 @@ class Object {
         this.canvas = canvas;
         this.ctx = canvas.ctx;
         canvas.objects.push(this);
+        this.ctx.fillStyle = color;
     }
     draw() {
         this.ctx.fillRect(this.x,this.y,this.w,this.h);
@@ -64,15 +68,17 @@ class Object {
     }
 }
 class Circle {
-    constructor(x,y,r,canvas) {
+    constructor(x,y,r,canvas,color="#000000") {
         this.x = x;
         this.y = y;
         this.r = r;
         this.canvas = canvas;
         this.ctx = canvas.ctx;
+        this.color = color;
         canvas.objects.push(this);
     }
     draw() {
+        this.ctx.fillStyle = this.color;
         this.ctx.beginPath();
         this.ctx.arc(this.x,this.y,this.r,0,2*Math.PI);
         this.ctx.stroke();
@@ -98,16 +104,18 @@ class Circle {
     }
 }
 class Line {
-    constructor(x1,y1,x2,y2,canvas) {
+    constructor(x1,y1,x2,y2,canvas,color="#000000") {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.color = color;
         this.canvas = canvas;
         this.ctx = canvas.ctx;
         canvas.objects.push(this);
     }
     draw() {
+        this.ctx.fillStyle = this.color;
         this.ctx.beginPath();
         this.ctx.moveTo(this.x1,this.y1);
         this.ctx.lineTo(this.x2,this.y2);
@@ -133,16 +141,18 @@ class Line {
     }
 }
 class Text {
-    constructor(x,y,text,canvas,size=undefined) {
+    constructor(x,y,text,canvas,size=undefined,color="#000000") {
         this.x = x;
         this.y = y;
         this.text = text;
         this.canvas = canvas;
         this.ctx = canvas.ctx;
         this.size = size
+        this.color = color;
         canvas.objects.push(this);
     }
     draw() {
+        this.ctx.fillStyle = this.color;
         this.ctx.font = this.size+"px Arial";
         this.ctx.fillText(this.text,this.x,this.y);
     }
