@@ -1,5 +1,5 @@
 /*
-If you want to understand this code/you want to edit it, email ianlouishawthorne@gmail.com
+By: Ianyourgod
  _._     _,-'""`-._
 (,-.`._,'(       |\`-/|
     `-.-' \ )-`( , o o)
@@ -7,36 +7,47 @@ If you want to understand this code/you want to edit it, email ianlouishawthorne
 */
 
 class canvas {
-    constructor(id,w,h,bgcolor="#FFFFFF") {
+    constructor(id,w,h,bgcolor="#FFFFFF",location=document.body) {
+        // creates a canvas element
         this.canv = document.createElement("canvas");
         this.canv.id = id;
         this.canv.width = w-50;
         this.canv.height = h-50;
+        // list of objects for rendering
         this.objects = [];
+        // context
         this.ctx = this.canv.getContext("2d");
         this.canv.style.backgroundColor = bgcolor;
-        document.body.appendChild(this.canv);
+        // puts the canvas on the screen
+        location.appendChild(this.canv);
     }
     draw() {
+        // updates the screen
         this.ctx.clearRect(0,0,this.canv.width,this.canv.height);
         for (var i = 0; i < this.objects.length; i++) {
             this.objects[i].draw();
         }
     }
     checkCollisions() {
+        // goes through list of objects then runs the method "allCollisions" if it exists
+        let allCols = [] 
         for (var i = 0; i < this.objects.length; i++) {
             if (typeof this.objects[i].allCollisions === "function") {
-                this.objects[i].allCollisions();
+                allCols.push(this.objects[i].allCollisions());
             }
         }
+        return allCols
     }
     update() {
-        this.checkCollisions();
+        // collisions and updates canvas, then returns list of all collisions
+        let allCols = this.checkCollisions();
         this.draw();
+        return allCols
     }
 }
 class Object {
     constructor(x,y,w,h,canvas,color="#000000") {
+     // simple cube object with a x,y,width,height,and color. Also stores the canvas and puts it self on the canvas's object list
         this.x = x;
         this.y = y;
         this.w = w;
@@ -47,18 +58,21 @@ class Object {
         this.ctx.fillStyle = color;
     }
     draw() {
+        // draws itself
         this.ctx.fillRect(this.x,this.y,this.w,this.h);
     }
     collision(x,y,w,h) {
+     // checks collision with another object
         if (x+w > this.x && x < this.x+this.w && y+h > this.y && y < this.y+this.h) {
             return true;
         }
         return false;
     }
     allCollisions(x,y,w,h) {
+        // gets list of collisions
         var collisions = [];
         for (var i = 0; i < this.canvas.objects.length; i++) {
-            if (this.canvas.objects[i] != this && typeof this.canvas.objects[i].collision === "function") {
+            if (this.canvas.objects[i] != this && typeof this.canvas.objects[i].collision === "function" && typeof this.canvas.objects[i] === "Object") {
                 if (this.canvas.objects[i].collision(x,y,w,h)) {
                     collisions.push(this.canvas.objects[i]);
                 }
@@ -69,6 +83,7 @@ class Object {
 }
 class Circle {
     constructor(x,y,r,canvas,color="#000000") {
+     // simple circle object, stores x,y,r,and canvas. Puts itself on the canvas's object list
         this.x = x;
         this.y = y;
         this.r = r;
@@ -78,6 +93,7 @@ class Circle {
         canvas.objects.push(this);
     }
     draw() {
+     // draws itself
         this.ctx.fillStyle = this.color;
         this.ctx.beginPath();
         this.ctx.arc(this.x,this.y,this.r,0,2*Math.PI);
@@ -85,6 +101,7 @@ class Circle {
         this.ctx.fill();
     }
     collision(x,y,r) {
+     // checks for collision with other circle
         var dist = Math.sqrt(Math.pow(x-this.x,2)+Math.pow(y-this.y,2));
         if (dist < r+this.r) {
             return true;
